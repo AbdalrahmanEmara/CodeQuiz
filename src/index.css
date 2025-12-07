@@ -1,1 +1,5 @@
 @import "tailwindcss";
+
+.bg-primary {
+  @apply min-h-screen bg-linear-to-br from-slate-900 via-purple-900 to-slate-900;
+}

@@ -14,7 +14,7 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   return (
-    <div className=''>
+    <div className='bg-primary'>
       <Outlet />
     </div>
   )

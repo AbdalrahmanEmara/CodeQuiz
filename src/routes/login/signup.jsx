@@ -5,5 +5,5 @@ export const Route = createFileRoute('/login/signup')({
 })
 
 function SignUp() {
-  return <div>Hello "/login/signup"!</div>
+  return <div className='bg-primary'>Hello "/login/signup"!</div>
 }
