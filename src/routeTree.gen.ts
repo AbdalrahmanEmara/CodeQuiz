@@ -15,7 +15,6 @@ import { Route as LoginIndexRouteImport } from './routes/login/index'
 import { Route as LeaderboardIndexRouteImport } from './routes/leaderboard/index'
 import { Route as QuizzesResultsRouteImport } from './routes/quizzes/results'
 import { Route as QuizzesQuizIdRouteImport } from './routes/quizzes/$quizId'
-import { Route as LoginSignupRouteImport } from './routes/login/signup'
 
 const QuizzesIndexRoute = QuizzesIndexRouteImport.update({
   id: '/quizzes/',
@@ -47,14 +46,8 @@ const QuizzesQuizIdRoute = QuizzesQuizIdRouteImport.update({
   path: '/quizzes/$quizId',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LoginSignupRoute = LoginSignupRouteImport.update({
-  id: '/login/signup',
-  path: '/login/signup',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
-  '/login/signup': typeof LoginSignupRoute
   '/quizzes/$quizId': typeof QuizzesQuizIdRoute
   '/quizzes/results': typeof QuizzesResultsRoute
   '/leaderboard': typeof LeaderboardIndexRoute
@@ -63,7 +56,6 @@ export interface FileRoutesByFullPath {
   '/quizzes': typeof QuizzesIndexRoute
 }
 export interface FileRoutesByTo {
-  '/login/signup': typeof LoginSignupRoute
   '/quizzes/$quizId': typeof QuizzesQuizIdRoute
   '/quizzes/results': typeof QuizzesResultsRoute
   '/leaderboard': typeof LeaderboardIndexRoute
@@ -73,7 +65,6 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/login/signup': typeof LoginSignupRoute
   '/quizzes/$quizId': typeof QuizzesQuizIdRoute
   '/quizzes/results': typeof QuizzesResultsRoute
   '/leaderboard/': typeof LeaderboardIndexRoute
@@ -84,7 +75,6 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/login/signup'
     | '/quizzes/$quizId'
     | '/quizzes/results'
     | '/leaderboard'
@@ -93,7 +83,6 @@ export interface FileRouteTypes {
     | '/quizzes'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/login/signup'
     | '/quizzes/$quizId'
     | '/quizzes/results'
     | '/leaderboard'
@@ -102,7 +91,6 @@ export interface FileRouteTypes {
     | '/quizzes'
   id:
     | '__root__'
-    | '/login/signup'
     | '/quizzes/$quizId'
     | '/quizzes/results'
     | '/leaderboard/'
@@ -112,7 +100,6 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  LoginSignupRoute: typeof LoginSignupRoute
   QuizzesQuizIdRoute: typeof QuizzesQuizIdRoute
   QuizzesResultsRoute: typeof QuizzesResultsRoute
   LeaderboardIndexRoute: typeof LeaderboardIndexRoute
@@ -165,18 +152,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QuizzesQuizIdRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/login/signup': {
-      id: '/login/signup'
-      path: '/login/signup'
-      fullPath: '/login/signup'
-      preLoaderRoute: typeof LoginSignupRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  LoginSignupRoute: LoginSignupRoute,
   QuizzesQuizIdRoute: QuizzesQuizIdRoute,
   QuizzesResultsRoute: QuizzesResultsRoute,
   LeaderboardIndexRoute: LeaderboardIndexRoute,
