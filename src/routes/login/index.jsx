@@ -6,8 +6,9 @@ import { ArrowRight, Lock, Mail, User } from "lucide-react";
 
 import AboutProject from "@components/ui/AboutProject";
 import Logo from "@components/ui/Logo";
-import { useAuth } from "@stores/useAuthStore";
 import toast from "react-hot-toast";
+
+import { useAuth } from "@/stores/authStore/useAuthStore";
 
 export const Route = createFileRoute("/login/")({
   component: LoginPage,

@@ -2,7 +2,8 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 
 import MainLayout from "@components/layout/MainLayout";
-import { useAuth } from "@stores/useAuthStore";
+
+import { useAuth } from "@/stores/authStore/useAuthStore";
 
 export const Route = createFileRoute("/quizzes/")({
   component: QuizzesPage,
