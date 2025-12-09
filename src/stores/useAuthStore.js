@@ -1,5 +1,5 @@
-import { Link } from "@tanstack/react-router";
 import { create } from "zustand";
+
 import { persist } from "zustand/middleware";
 
 export const useAuth = create(
@@ -15,9 +15,7 @@ export const useAuth = create(
           await new Promise((resolve) => setTimeout(resolve, 500));
 
           const users = JSON.parse(localStorage.getItem("users") || "[]");
-          const user = users.find(
-            (u) => u.name === name && u.password === password
-          );
+          const user = users.find((u) => u.name === name && u.password === password);
 
           if (!user) throw new Error("Invalid username or password");
 
@@ -43,14 +41,14 @@ export const useAuth = create(
         try {
           set({ loading: true, error: null });
 
-          await new Promise(resolve => setTimeout(resolve, 500));
+          await new Promise((resolve) => setTimeout(resolve, 500));
 
           const users = JSON.parse(localStorage.getItem("users") || "[]");
-  
+
           // Check if email exists
           if (users.find((u) => u.email === userData.email))
             throw new Error("Email already exists");
-  
+
           // Create new user
           const newUser = {
             id: new Date().getSeconds(),
@@ -62,20 +60,20 @@ export const useAuth = create(
           if (users.find((u) => u.email === userData.email)) {
             throw new Error("Email already exists");
           }
-  
+
           // Save new user to local Storage
           users.push(newUser);
           localStorage.setItem("users", JSON.stringify(users));
-  
+
           // Auto login after register
           const { password: _, ...userWithoutPassword } = newUser;
           set({ user: userWithoutPassword, isAuthenticated: true, loading: false, error: null });
-  
+
           return { success: true };
-        } catch(error) {
+        } catch (error) {
           set({
             error: error.message,
-            loading: false
+            loading: false,
           });
           throw error;
         }
@@ -84,21 +82,6 @@ export const useAuth = create(
       logout: () => {
         set({ user: null, isAuthenticated: false, error: null });
       },
-
-      // updateUser: (email, password, newName, newPassword) => {
-      //   const users = JSON.parse(localStorage.getItem("users") || "[]");
-      //   const user = users.find(
-      //     (u) => u.password === password && u.email === email
-      //   );
-      //   if (user) {
-      //     set({ user: { ...get().user, name: newName } });
-      //     users.map((u) =>
-      //       u.password === password && u.email === email
-      //         ? { ...user, password: newPassword }
-      //         : u
-      //     );
-      //   }
-      // },
 
       clearError: () => set({ error: null }),
     }),

@@ -1,13 +1,13 @@
-import { createFileRoute } from '@tanstack/react-router'
-import MainLayout from '../../components/layout/MainLayout';
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/quizzes/$quizId')({
+import MainLayout from "@components/layout/MainLayout";
+
+export const Route = createFileRoute("/quizzes/$quizId")({
   component: TakeQuiz,
-})
+});
 
 function TakeQuiz() {
   const { quizId } = Route.useParams();
 
-
-  return <MainLayout>Hello in Quiz ({quizId})</MainLayout>
+  return <MainLayout>Hello in Quiz ({quizId})</MainLayout>;
 }

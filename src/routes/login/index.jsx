@@ -1,11 +1,13 @@
-import { createFileRoute, Navigate, useNavigate } from "@tanstack/react-router";
-import AboutProject from "../../components/ui/AboutProject";
-import Logo from "../../components/ui/Logo";
-import { ArrowRight, Lock, Mail, User } from "lucide-react";
 import { useState } from "react";
-import { useAuth } from "../../stores/useAuthStore";
+
+import { Navigate, createFileRoute, useNavigate } from "@tanstack/react-router";
+
+import { ArrowRight, Lock, Mail, User } from "lucide-react";
+
+import AboutProject from "@components/ui/AboutProject";
+import Logo from "@components/ui/Logo";
+import { useAuth } from "@stores/useAuthStore";
 import toast from "react-hot-toast";
-import { Toaster } from "react-hot-toast";
 
 export const Route = createFileRoute("/login/")({
   component: LoginPage,
@@ -50,8 +52,7 @@ function LoginPage() {
 
     try {
       await register({ name, email, password });
-          clearError();
-
+      clearError();
     } catch (err) {
       toast.error(err);
       console.error(err);
@@ -76,13 +77,9 @@ function LoginPage() {
           <Logo className="max-w-fit" />
         </span>
         <div className="bg-slate-800/50 mx-auto w-full max-w-[450px] rounded-lg text-white py-6 px-5">
-          <p className="text-2xl text-center mb-2 ">
-            {signin ? "Welcome Back" : "Create Account"}
-          </p>
+          <p className="text-2xl text-center mb-2 ">{signin ? "Welcome Back" : "Create Account"}</p>
           <p className="text-slate-400 text-center text-sm mb-4">
-            {signin
-              ? "Sign in to continue learning"
-              : "Sign up to start your journey"}
+            {signin ? "Sign in to continue learning" : "Sign up to start your journey"}
           </p>
           <form action="" onSubmit={signin ? handleLogin : handleRegister}>
             <label htmlFor="username" className="text-sm text-slate-200">
@@ -134,7 +131,7 @@ function LoginPage() {
             <button
               type="submit"
               className="bg-purple-600 text-md w-full my-3 p-3 rounded-lg cursor-pointer"
-              >
+            >
               {signin ? "Sign in " : "Sign up "}
               <ArrowRight className="inline" />
             </button>

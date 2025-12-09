@@ -1,5 +1,7 @@
 import * as React from "react";
+
 import { Outlet, createRootRoute, redirect } from "@tanstack/react-router";
+
 import { Toaster } from "react-hot-toast";
 
 export const Route = createRootRoute({
