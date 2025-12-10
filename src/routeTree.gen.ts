@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as R404RouteImport } from './routes/404'
 import { Route as QuizzesIndexRouteImport } from './routes/quizzes/index'
 import { Route as ProfileIndexRouteImport } from './routes/profile/index'
 import { Route as LoginIndexRouteImport } from './routes/login/index'
@@ -16,6 +17,11 @@ import { Route as LeaderboardIndexRouteImport } from './routes/leaderboard/index
 import { Route as QuizzesResultsRouteImport } from './routes/quizzes/results'
 import { Route as QuizzesQuizIdRouteImport } from './routes/quizzes/$quizId'
 
+const R404Route = R404RouteImport.update({
+  id: '/404',
+  path: '/404',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const QuizzesIndexRoute = QuizzesIndexRouteImport.update({
   id: '/quizzes/',
   path: '/quizzes/',
@@ -48,6 +54,7 @@ const QuizzesQuizIdRoute = QuizzesQuizIdRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
+  '/404': typeof R404Route
   '/quizzes/$quizId': typeof QuizzesQuizIdRoute
   '/quizzes/results': typeof QuizzesResultsRoute
   '/leaderboard': typeof LeaderboardIndexRoute
@@ -56,6 +63,7 @@ export interface FileRoutesByFullPath {
   '/quizzes': typeof QuizzesIndexRoute
 }
 export interface FileRoutesByTo {
+  '/404': typeof R404Route
   '/quizzes/$quizId': typeof QuizzesQuizIdRoute
   '/quizzes/results': typeof QuizzesResultsRoute
   '/leaderboard': typeof LeaderboardIndexRoute
@@ -65,6 +73,7 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/404': typeof R404Route
   '/quizzes/$quizId': typeof QuizzesQuizIdRoute
   '/quizzes/results': typeof QuizzesResultsRoute
   '/leaderboard/': typeof LeaderboardIndexRoute
@@ -75,6 +84,7 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/404'
     | '/quizzes/$quizId'
     | '/quizzes/results'
     | '/leaderboard'
@@ -83,6 +93,7 @@ export interface FileRouteTypes {
     | '/quizzes'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/404'
     | '/quizzes/$quizId'
     | '/quizzes/results'
     | '/leaderboard'
@@ -91,6 +102,7 @@ export interface FileRouteTypes {
     | '/quizzes'
   id:
     | '__root__'
+    | '/404'
     | '/quizzes/$quizId'
     | '/quizzes/results'
     | '/leaderboard/'
@@ -100,6 +112,7 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  R404Route: typeof R404Route
   QuizzesQuizIdRoute: typeof QuizzesQuizIdRoute
   QuizzesResultsRoute: typeof QuizzesResultsRoute
   LeaderboardIndexRoute: typeof LeaderboardIndexRoute
@@ -110,6 +123,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/404': {
+      id: '/404'
+      path: '/404'
+      fullPath: '/404'
+      preLoaderRoute: typeof R404RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/quizzes/': {
       id: '/quizzes/'
       path: '/quizzes'
@@ -156,6 +176,7 @@ declare module '@tanstack/react-router' {
 }
 
 const rootRouteChildren: RootRouteChildren = {
+  R404Route: R404Route,
   QuizzesQuizIdRoute: QuizzesQuizIdRoute,
   QuizzesResultsRoute: QuizzesResultsRoute,
   LeaderboardIndexRoute: LeaderboardIndexRoute,

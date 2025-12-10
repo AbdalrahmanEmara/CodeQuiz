@@ -17,15 +17,12 @@ export const createRegisterSlice = (set) => ({
 
       // Create new user
       const newUser = {
-        id: new Date().getSeconds(),
+        id: Date.now(),
         name: userData.name,
         email: userData.email,
         password: userData.password,
         createdAt: new Date().toISOString(),
       };
-      if (users.find((u) => u.email === userData.email)) {
-        throw new Error("Email already exists");
-      }
 
       // Save new user to local Storage
       users.push(newUser);
