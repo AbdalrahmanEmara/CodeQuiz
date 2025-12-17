@@ -6,7 +6,7 @@ export default function MainLayout({ children }) {
     <>
       <Header />
       {children}
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }
