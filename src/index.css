@@ -1,5 +1,19 @@
 @import "tailwindcss";
 
+/* body {
+  background: linear-gradient(to bottom right, oklch(20.8% 0.042 265.755), oklch(38.1% 0.176 304.987))
+} */
+
 .bg-primary {
   @apply min-h-screen bg-linear-to-br from-slate-900 via-purple-900 to-slate-900;
+}
+
+.correct-answer {
+  border-color: green;
+  background-color: oklch(52.7% 0.154 150.069);
+}
+
+.wrong-answer {
+  border-color: red;
+  background-color: oklch(63.7% 0.237 25.331);
 }
