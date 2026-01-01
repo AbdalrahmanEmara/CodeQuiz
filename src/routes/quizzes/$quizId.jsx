@@ -9,7 +9,10 @@ import MainLayout from "@components/layout/MainLayout";
 
 import ProgressBar from "@/components/ui/ProgressBar";
 
+import { useQuizStore } from "@/stores/currentQuiz/quizStore";
+
 import { requireAuth } from "@/utils/authGuard";
+import { useQuiz } from "@/utils/useQuiz";
 
 export const Route = createFileRoute("/quizzes/$quizId")({
   component: TakeQuiz,
@@ -19,9 +22,35 @@ export const Route = createFileRoute("/quizzes/$quizId")({
 function TakeQuiz() {
   const { quizId } = Route.useParams();
   const [isAnswered, setIsAnswered] = useState(false);
+  const { category, difficulty } = useQuizStore();
 
+  const { data, isPending, error, isError } = useQuiz(category, difficulty);
+
+  if (isError) {
+    console.log(error.message);
+  }
+
+  if (data) {
+    console.log(data);
+  }
   function handleAnswer() {
     setIsAnswered(true);
+  }
+
+  if (isPending) {
+    return (
+      <MainLayout>
+        <div>Loading...</div>
+      </MainLayout>
+    );
+  }
+
+  if (isError) {
+    return (
+      <MainLayout>
+        <div>{error.message}</div>
+      </MainLayout>
+    );
   }
 
   return (
@@ -37,6 +66,7 @@ function TakeQuiz() {
             </span>
           </div>
           <ProgressBar value={50} max={100} />
+          {/* <TestComponent /> */}
         </div>
         <div className="p-5 bg-slate-800/50 rounded-2xl border border-slate-800">
           <p className="font-semibold">Question</p>

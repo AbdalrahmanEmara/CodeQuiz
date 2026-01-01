@@ -9,6 +9,8 @@ import MainLayout from "@components/layout/MainLayout";
 import CategoryCard from "@/components/quiz/CategoryCard";
 import Modal from "@/components/ui/Modal";
 
+import { useQuizStore } from "@/stores/currentQuiz/quizStore";
+
 import { requireAuth } from "@/utils/authGuard";
 
 export const Route = createFileRoute("/quizzes/")({
@@ -17,15 +19,7 @@ export const Route = createFileRoute("/quizzes/")({
   meta: () => [{ title: "Quizzes - CodeQuiz" }],
 });
 
-const categories = [
-  "Linux",
-  "DevOps",
-  "Networking",
-  "Programming",
-  "Cloud",
-  "Docker",
-  "Kubernetes",
-];
+const categories = ["Linux", "DevOps", "Networking", "Code", "Cloud", "Docker", "Kubernetes"];
 
 const difficulties = [
   {
@@ -66,6 +60,7 @@ function QuizzesPage() {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [categorySelected, setCategorySelected] = useState("");
+  const chooseQuiz = useQuizStore((state) => state.chooseQuiz);
 
   const handleCategoryClick = (category) => {
     setCategorySelected(category);
@@ -73,6 +68,7 @@ function QuizzesPage() {
   };
 
   const handleDifficultyLevel = (difficulty) => {
+    chooseQuiz(difficulty, categorySelected);
     navigate({
       to: "/quizzes/$quizId",
       params: { quizId: `${categorySelected}-${difficulty}`.toLowerCase() },
