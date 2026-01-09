@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Navigate, createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 
 import { ArrowRight, Lock, Mail, User } from "lucide-react";
 
@@ -10,8 +10,11 @@ import toast from "react-hot-toast";
 
 import { useAuth } from "@/stores/authStore/useAuthStore";
 
+import { requireGuest } from "@/utils/authGuard";
+
 export const Route = createFileRoute("/login/")({
   component: LoginPage,
+  beforeLoad: ({ location }) => requireGuest(location),
 });
 
 function LoginPage() {
@@ -21,11 +24,8 @@ function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { login, register, isAuthenticated, clearError } = useAuth();
-
-  if (isAuthenticated) {
-    return <Navigate to="/quizzes" />;
-  }
+  const { login, register, clearError } = useAuth();
+  const { redirect } = Route.useSearch();
 
   async function handleLogin(e) {
     e.preventDefault();
@@ -34,7 +34,7 @@ function LoginPage() {
     try {
       await login(name, password);
       clearError();
-      navigate({ to: "/quizzes" });
+      navigate({ to: redirect || "/leaderboard" });
     } catch (err) {
       toast.error(err.message);
       console.error(err);
@@ -54,6 +54,7 @@ function LoginPage() {
     try {
       await register({ name, email, password });
       clearError();
+      navigate({ to: redirect || "/quizzes" });
     } catch (err) {
       toast.error(err);
       console.error(err);

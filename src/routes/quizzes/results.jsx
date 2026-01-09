@@ -2,8 +2,11 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 
 import MainLayout from "@components/layout/MainLayout";
 
+import { requireAuth } from "@/utils/authGuard";
+
 export const Route = createFileRoute("/quizzes/results")({
   component: ResultsPage,
+  beforeLoad: ({ location }) => requireAuth(location),
 });
 
 function ResultsPage() {

@@ -1,17 +1,21 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { Navigate, createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 
 import MainLayout from "@components/layout/MainLayout";
 
 import { useAuth } from "@/stores/authStore/useAuthStore";
 
+import { requireAuth } from "@/utils/authGuard";
+
 export const Route = createFileRoute("/quizzes/")({
   component: QuizzesPage,
+  beforeLoad: ({ location }) => requireAuth(location),
+  meta: () => [{ title: "Quizzes - CodeQuiz" }],
 });
 
 function QuizzesPage() {
-  const navigate = useNavigate();
   const logout = useAuth((state) => state.logout);
+  const navigate = useNavigate();
 
   function handleLogout(e) {
     e.preventDefault();
