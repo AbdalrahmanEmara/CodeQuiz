@@ -19,7 +19,7 @@ export const Route = createFileRoute("/quizzes/")({
   meta: () => [{ title: "Quizzes - CodeQuiz" }],
 });
 
-const categories = ["Linux", "DevOps", "Networking", "Code", "Cloud", "Docker", "Kubernetes"];
+const categories = ["Linux", "BASH", "HTML", "DevOps", "Code", "Docker", "React", "nodeJS"];
 
 const difficulties = [
   {
@@ -60,7 +60,7 @@ function QuizzesPage() {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [categorySelected, setCategorySelected] = useState("");
-  const chooseQuiz = useQuizStore((state) => state.chooseQuiz);
+  const selectQuiz = useQuizStore((state) => state.selectQuiz);
 
   const handleCategoryClick = (category) => {
     setCategorySelected(category);
@@ -68,11 +68,11 @@ function QuizzesPage() {
   };
 
   const handleDifficultyLevel = (difficulty) => {
-    chooseQuiz(difficulty, categorySelected);
     navigate({
       to: "/quizzes/$quizId",
       params: { quizId: `${categorySelected}-${difficulty}`.toLowerCase() },
     });
+    selectQuiz(difficulty, categorySelected);
   };
 
   const handleCloseModal = () => {

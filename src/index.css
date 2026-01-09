@@ -1,9 +1,5 @@
 @import "tailwindcss";
 
-/* body {
-  background: linear-gradient(to bottom right, oklch(20.8% 0.042 265.755), oklch(38.1% 0.176 304.987))
-} */
-
 .bg-primary {
   @apply min-h-screen bg-linear-to-br from-slate-900 via-purple-900 to-slate-900;
 }
@@ -16,4 +12,142 @@
 .wrong-answer {
   border-color: red;
   background-color: oklch(63.7% 0.237 25.331);
+}
+
+/* 3D helpers */
+.perspective-\[1000px\] {
+  perspective: 1000px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+/* Cube faces */
+.cube-face {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: rgba(138, 43, 226, 0.1);
+  border: 2px solid rgba(138, 43, 226, 0.6);
+  backdrop-filter: blur(10px);
+  box-shadow:
+    0 0 20px rgba(138, 43, 226, 0.5),
+    inset 0 0 20px rgba(138, 43, 226, 0.2);
+}
+
+.front {
+  transform: translateZ(100px);
+}
+
+.back {
+  transform: translateZ(-100px) rotateY(180deg);
+}
+
+.right {
+  transform: rotateY(90deg) translateZ(100px);
+}
+
+.left {
+  transform: rotateY(-90deg) translateZ(100px);
+}
+
+.top {
+  transform: rotateX(90deg) translateZ(100px);
+}
+
+.bottom {
+  transform: rotateX(-90deg) translateZ(100px);
+}
+
+/* Animations */
+@keyframes cubeRotate {
+  from {
+    transform: rotateX(0deg) rotateY(0deg);
+  }
+  to {
+    transform: rotateX(360deg) rotateY(360deg);
+  }
+}
+
+.animate-cubeRotate {
+  animation: cubeRotate 4s linear infinite;
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+.animate-pulseGlow {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+@keyframes fadeInOut {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-fadeInOut {
+  animation: fadeInOut 2s infinite;
+}
+
+/* Particles */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(-30px) scale(1.5);
+    opacity: 1;
+  }
+}
+
+.particle {
+  animation: float 3s ease-in-out infinite;
+}
+
+.particle-1 {
+  left: 10%;
+  top: 20%;
+  animation-delay: 0s;
+}
+.particle-2 {
+  left: 80%;
+  top: 30%;
+  animation-delay: 0.5s;
+}
+.particle-3 {
+  left: 60%;
+  top: 70%;
+  animation-delay: 1s;
+}
+.particle-4 {
+  left: 30%;
+  top: 80%;
+  animation-delay: 1.5s;
+}
+.particle-5 {
+  left: 90%;
+  top: 50%;
+  animation-delay: 2s;
+}
+.particle-6 {
+  left: 20%;
+  top: 60%;
+  animation-delay: 2.5s;
 }

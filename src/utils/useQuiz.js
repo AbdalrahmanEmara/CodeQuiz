@@ -2,6 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 
 import axios from "axios";
 
+import { useQuizStore } from "@/stores/currentQuiz/quizStore";
+
 const TOKEN = "rCQgGwaCV51a96XBCIDMbAuuhURrgUacDgRdK2t1";
 
 export function useQuiz(category, difficulty) {
@@ -29,10 +31,15 @@ export function useQuiz(category, difficulty) {
           question: q.question,
           options: Object.values(q.answers).filter((opt) => opt !== null),
           correctAnswer: Object.values(q.correct_answers).reduce((acc, cur, i) => {
-            return cur === "true" ? i + 1 : acc;
+            return cur === "true" ? i : acc;
           }, 0),
+          explanation: q.explanation,
         })),
       };
+    },
+    onSuccess: (quiz) => {
+      const chooseQuiz = useQuizStore.getState().chooseQuiz;
+      chooseQuiz(quiz.questions);
     },
   });
 }
